@@ -19,7 +19,8 @@ For example, if you wish to add a new supported currency, you may edit the `back
 ```js
 const currencyConfig = {
     EUR: { rateRegex: /1\s*USD\s*=\s*([\d.]+)\s*EUR/i, fallbackRate: 0.87 },
-    /* Inside the rateRegex part, you only need to swap out EUR for GBP, and include the appropriate fallbackRate value, which you can find online */
+    /* Inside the rateRegex part, you only need to swap out EUR for GBP, and include
+    the appropriate fallbackRate value, which you can find online */
     GBP: { rateRegex: /1\s*USD\s*=\s*([\d.]+)\s*GBP/i, fallbackRate: 0.79 }
     // (And so on...)
 }
