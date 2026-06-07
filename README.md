@@ -15,7 +15,7 @@ The conversion process uses the [Wise Currency Converter](https://wise.com/gb/cu
 ## Open-Source Contributions
 Because of the nature of this project as open-source software (in lieu of being published on the Chrome Web Store), public contributors may create pull requests in order to introduce changes, which I will review myself.
 
-For example, if you wish to add a new supported currency, you may edit the `background.js` file and copy the Rejex logic. Using `GBP` for demonstration:
+For example, if you wish to add a new supported currency, you may edit the `background.js` file and copy the Regex logic. Using `GBP` for demonstration:
 ```js
 const currencyConfig = {
     EUR: { rateRegex: /1\s*USD\s*=\s*([\d.]+)\s*EUR/i, fallbackRate: 0.87 },
