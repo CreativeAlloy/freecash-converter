@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 200px;
+      padding: 10px;
+      margin: 0;
+      background-color: #1a1d24;
+      color: #ffffff;
+    }
+    label {
+      font-size: 12px;
+      display: block;
+      margin-bottom: 8px;
+      margin-top: 8px;
+    }
+    input[type="checkbox"] {
+      margin-right: 6px;
+      cursor: pointer;
+      accent-color: #4299e1;
+    }
+    select {
+      width: 100%;
+      padding: 6px;
+      background-color: #2d323f;
+      color: white;
+      border: 1px solid #4a5568;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .note {
+      font-size: 10px;
+      color: #a0aec0;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .red {
+      color: #c45353;
+    }
+  </style>
+</head>
+<body>
+  <label>
+    <input type="checkbox" id="extension-enabled" checked>
+    Enable Extension
+  </label>
+
+  <label for="currency-select">Target Currency:</label>
+  <select id="currency-select">
+    <option value="EUR">EUR (€)</option>
+    <option value="GBP">GBP (£)</option>
+    <option value="ILS">ILS (₪)</option>
+    <option value="INR">INR (₹)</option>
+    <option value="CAD">CAD (C$)</option>
+    <option value="AUD">AUD (A$)</option>
+    <option value="CHF">CHF (CHF)</option>
+    <option value="BRL">BRL (R$)</option>
+    <option value="ALL">ALL (L)</option>
+    <option value="CZK">CZK (Kč)</option>
+    <option value="ARS">ARS (ARS$)</option>
+    <option value="TWD">TWD (NT$)</option>
+    <option value="UAH">UAH (₴)</option>
+    <option value="DKK">DKK (kr)</option>
+    <option value="GEL">GEL (₾)</option>
+    <option value="MAD">MAD (DH)</option>
+    <option value="AED">AED (AED)</option>
+    <option value="SAR">SAR (SR)</option>
+  </select>
+
+  <label for="display-mode">Display Mode:</label>
+  <select id="display-mode">
+    <option value="parentheses">Show in Parentheses</option>
+    <option value="replace">Replace Text</option>
+  </select>
+
+  <div class="note">Refresh Freecash after changing!</div>
+  <div class="red note">Converted values are approximate and for reference only, and may not match the actual amounts upon cashout due to conversion fees, fluctuating rates, etc.</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

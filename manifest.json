@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Freecash Multi-Currency Converter",
+  "version": "1.0.0",
+  "description": "Locally converts Freecash USD values to other currencies using live Wise rates.",
+  "icons": {
+    "128": "freecash-converter.png",
+    "256": "freecash-converter.png",
+    "512": "freecash-converter.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://wise.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "freecash-converter.png",
+    "default_title": "Freecash Multi-Currency Converter"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.freecash.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
