@@ -149,11 +149,18 @@ function convertPricesOnPage(element = document.body) {
           return NodeFilter.FILTER_REJECT;
         }
         
-        // Skip text nodes inside chakra-text elements (they'll be handled by chakra overlay logic)
+        // Skip text nodes inside chakra-text elements or the main withdrawal screen wrapper
         let parent = node.parentElement;
         while (parent) {
-          if (parent.classList && Array.from(parent.classList).some(cls => cls.includes('chakra-text'))) {
-            return NodeFilter.FILTER_REJECT;
+          if (parent.classList) {
+            // Reject entirely if inside the main withdrawal screen container to prevent broken values
+            if (parent.classList.contains('fc-1me6h9c')) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            // Skip and let the chakra elements loop handle it
+            if (Array.from(parent.classList).some(cls => cls.includes('chakra-text'))) {
+              return NodeFilter.FILTER_REJECT;
+            }
           }
           parent = parent.parentElement;
         }
@@ -171,7 +178,7 @@ function convertPricesOnPage(element = document.body) {
 
     if (priceRegex.test(originalText)) {
       // Reset regex index before replacing
-      priceRegex.lastIndex = 0; 
+      priceRegex.lastIndex = 0;
 
       if (displayMode === 'replace') {
         // Replace mode: replace original text with converted value
@@ -287,10 +294,9 @@ function convertPricesOnPage(element = document.body) {
         'fc-4sd3b',
         'fc-10wp6bm',
         'fc-1e9qgxv',
-        'fc-1q5d9ro', 
+        'fc-1q5d9ro',
         'fc-cv7t3j',
         'fc-nwsrl7',
-        // 'fc-1jh1nzt' // This class is used for the reward of the current offer selected in My Offers, commented out because adding it here glitches the page.
       ]; // God fucking help me with these obfuscated class names
       const isDisplayModeChakra = displayModeChakras.some(cls => chakraEl.classList.toString().includes(cls));
       
@@ -301,36 +307,34 @@ function convertPricesOnPage(element = document.body) {
         'fc-puk5iu',
         'fc-4sd3b',
         'fc-1ksqa92',
+        'fc-1a72s9y', // PayPal withdrawal screen amount stuff
       ];
+
       if (isExceptionToHide.some(cls => chakraEl.classList.toString().includes(cls))) {
         return; // Skip this element entirely
       }
       
-      // Special case: fc-w2pqmz should only be hidden if it's a child of fc-7gkp5u - this class holds seemingly all elements that display cashout exchange rates, crypto fees where applicable, etc. Converted values look broken on these screens anyway. Maybe I might fix this in the future if I want to
-      if (chakraEl.classList.toString().includes('fc-w2pqmz')) {
-        let parentElement = chakraEl.parentElement;
-        let hasParentClass = false;
-        while (parentElement) {
-          if (parentElement.classList && parentElement.classList.contains('fc-7gkp5u')) {
-            hasParentClass = true;
-            break;
-          }
-          parentElement = parentElement.parentElement;
-        }
-        if (hasParentClass) {
-          return; // Skip this element if it's a child of fc-7gkp5u
-        }
-      }
-      
-      // Check if inside onboarding-offer-task div - skip overlay for these
+      // Check if inside onboarding-offer-task div or the main withdrawal screen wrapper
       let parent = chakraEl.parentElement;
       let isInsideOnboardingTask = false;
+      let isInsideWithdrawalScreen = false;
       while (parent) {
-        if (parent.classList && parent.classList.contains('onboarding-offer-task')) {
-          isInsideOnboardingTask = true;
-          break;
+        if (parent.classList) {
+          if (parent.classList.contains('fc-1me6h9c')) {
+            isInsideWithdrawalScreen = true;
+            break;
+          }
+          if (parent.classList.contains('onboarding-offer-task')) {
+            isInsideOnboardingTask = true;
+            break;
+          }
         }
         parent = parent.parentElement;
+      }
+      
+      // Skip the element entirely if it lies inside the withdrawal screen wrapper
+      if (isInsideWithdrawalScreen) {
+        return;
       }
       
       if (isLotteryChakra) {
@@ -454,11 +458,11 @@ async function init() {
     // Clear existing timeout if user clicks again quickly
     if (clickTimeout) clearTimeout(clickTimeout);
     
-    // Re-convert chakra elements after 0.5s to catch dynamically updated prices
+    // Re-convert chakra elements after 250ms to catch dynamically updated prices
     clickTimeout = setTimeout(() => {
       console.log('[Freecash Converter] Running price conversion after click');
       convertPricesOnPage(document.body);
-    }, 500);
+    }, 250);
   }, true); // Use capture phase to catch all clicks
 
   // Listen for storage changes (when popup settings change)
