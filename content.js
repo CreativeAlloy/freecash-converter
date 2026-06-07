@@ -272,16 +272,54 @@ function convertPricesOnPage(element = document.body) {
       });
       
       // Check if this is the lottery chakra (fc-ffrnu2) - not dynamic, replace text directly
-      const isLotteryChakra = chakraEl.classList.toString().includes('fc-ffrnu2');
+      const isLotteryChakra = chakraEl.classList.toString().includes('fc-ffrnu2'); // This class is only used for the Lottery Reward card in My Offers
       
       // Check if this is a display-mode chakra (applies display mode setting instead of overlay)
-      const displayModeChakras = ['fc-dxjui9', 'fc-15zum9u', 'fc-cbiyc9', 'fc-1peqqr2', 'fc-1cyy9q5', 'fc-gltlbi', 'fc-mj829', 'fc-wfh8u6', 'fc-4sd3b', 'fc-10wp6bm', 'fc-1e9qgxv', 'fc-1q5d9ro', 'fc-cv7t3j', 'fc-nwsrl7', 'fc-1jh1nzt']; // God fucking help me with these obfuscated class names
+      const displayModeChakras = [
+        'fc-dxjui9',
+        'fc-15zum9u', // This class holds the value of individual rewards for each milestone in an offer (My Offers page > Main Rewards)
+        'fc-cbiyc9',
+        'fc-1peqqr2',
+        'fc-1cyy9q5',
+        'fc-gltlbi',
+        'fc-mj829',
+        'fc-wfh8u6',
+        'fc-4sd3b',
+        'fc-10wp6bm',
+        'fc-1e9qgxv',
+        'fc-1q5d9ro', 
+        'fc-cv7t3j',
+        'fc-nwsrl7',
+        // 'fc-1jh1nzt' // This class is used for the reward of the current offer selected in My Offers, commented out because adding it here glitches the page.
+      ]; // God fucking help me with these obfuscated class names
       const isDisplayModeChakra = displayModeChakras.some(cls => chakraEl.classList.toString().includes(cls));
       
       // Check if this is an exception to ignore entirely
-      const isExceptionToHide = ['fc-98dyva', 'fc-31ne59', 'fc-puk5iu', 'fc-w2pqmz', 'fc-4sd3b'];
+      const isExceptionToHide = [ // I am breaking these down into multiple lines because I want to at least be able to label what each obfuscated class is for
+        'fc-98dyva',
+        'fc-31ne59',
+        'fc-puk5iu',
+        'fc-4sd3b',
+        'fc-1ksqa92',
+      ];
       if (isExceptionToHide.some(cls => chakraEl.classList.toString().includes(cls))) {
         return; // Skip this element entirely
+      }
+      
+      // Special case: fc-w2pqmz should only be hidden if it's a child of fc-7gkp5u - this class holds seemingly all elements that display cashout exchange rates, crypto fees where applicable, etc. Converted values look broken on these screens anyway. Maybe I might fix this in the future if I want to
+      if (chakraEl.classList.toString().includes('fc-w2pqmz')) {
+        let parentElement = chakraEl.parentElement;
+        let hasParentClass = false;
+        while (parentElement) {
+          if (parentElement.classList && parentElement.classList.contains('fc-7gkp5u')) {
+            hasParentClass = true;
+            break;
+          }
+          parentElement = parentElement.parentElement;
+        }
+        if (hasParentClass) {
+          return; // Skip this element if it's a child of fc-7gkp5u
+        }
       }
       
       // Check if inside onboarding-offer-task div - skip overlay for these
