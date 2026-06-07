@@ -32,7 +32,7 @@ The installation process is simple. Create a new folder anywhere on your compute
 
 Alternatively, you may use the Command Prompt directly with `cd C:\Users\NAME\Desktop\FOLDERNAME` if your folder is on your Desktop, and you don't have any of that OneDrive nonsense working in the background.
 
-Once you are operating within that newly created folder, run the following commands in Command Prompt:
+Once you are operating within that newly created folder, run the following command in Command Prompt:
 ```batch
 :: Clone the repository into your folder
 git clone https://github.com/CreativeAlloy/freecash-converter.git .
