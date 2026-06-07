@@ -1,77 +1,24 @@
 // Currency configuration with symbols and fallback rates
 const currencyConfig = {
-  EUR: {
-    symbol: '€',
-    fallbackRate: 0.87
-  },
-  GBP: {
-    symbol: '£',
-    fallbackRate: 0.79
-  },
-  ILS: {
-    symbol: '₪',
-    fallbackRate: 3.65
-  },
-  INR: {
-    symbol: '₹',
-    fallbackRate: 83.00
-  },
-  CAD: {
-    symbol: 'C$',
-    fallbackRate: 1.36
-  },
-  AUD: {
-    symbol: 'A$',
-    fallbackRate: 1.50
-  },
-  CHF: {
-    symbol: 'CHF',
-    fallbackRate: 0.88
-  },
-  BRL: {
-    symbol: 'R$',
-    fallbackRate: 4.95
-  },
-  ALL: {
-    symbol: 'L',
-    fallbackRate: 98.00
-  },
-  CZK: {
-    symbol: 'Kč',
-    fallbackRate: 24.00
-  },
-  ARS: {
-    symbol: 'ARS$',
-    fallbackRate: 835.00
-  },
-  TWD: {
-    symbol: 'NT$',
-    fallbackRate: 32.00
-  },
-  UAH: {
-    symbol: '₴',
-    fallbackRate: 40.00
-  },
-  DKK: {
-    symbol: 'kr',
-    fallbackRate: 6.70
-  },
-  GEL: {
-    symbol: '₾',
-    fallbackRate: 2.65
-  },
-  MAD: {
-    symbol: 'DH',
-    fallbackRate: 9.90
-  },
-  AED: {
-    symbol: 'AED',
-    fallbackRate: 3.67
-  },
-  SAR: {
-    symbol: 'SR',
-    fallbackRate: 3.75
-  }
+  EUR: { symbol: '€', fallbackRate: 0.87 },
+  GBP: { symbol: '£', fallbackRate: 0.79 },
+  ILS: { symbol: '₪', fallbackRate: 3.65 },
+  INR: { symbol: '₹', fallbackRate: 83.00 },
+  CAD: { symbol: 'C$', fallbackRate: 1.36 },
+  AUD: { symbol: 'A$', fallbackRate: 1.50 },
+  CHF: { symbol: 'CHF', fallbackRate: 0.88 },
+  BRL: { symbol: 'R$', fallbackRate: 4.95 },
+  ALL: { symbol: 'L', fallbackRate: 98.00 },
+  CZK: { symbol: 'Kč', fallbackRate: 24.00 },
+  ARS: { symbol: 'ARS$', fallbackRate: 835.00 },
+  TWD: { symbol: 'NT$', fallbackRate: 32.00 },
+  UAH: { symbol: '₴', fallbackRate: 40.00 },
+  DKK: { symbol: 'kr', fallbackRate: 6.70 },
+  GEL: { symbol: '₾', fallbackRate: 2.65 },
+  MAD: { symbol: 'DH', fallbackRate: 9.90 },
+  AED: { symbol: 'AED', fallbackRate: 3.67 },
+  SAR: { symbol: 'SR', fallbackRate: 3.75 },
+  CNY: { symbol: '¥', fallbackRate: 6.77 }
 };
 
 let targetCurrency = 'EUR';
@@ -178,7 +125,7 @@ function convertPricesOnPage(element = document.body) {
 
     if (priceRegex.test(originalText)) {
       // Reset regex index before replacing
-      priceRegex.lastIndex = 0;
+      priceRegex.lastIndex = 0; 
 
       if (displayMode === 'replace') {
         // Replace mode: replace original text with converted value
@@ -293,7 +240,7 @@ function convertPricesOnPage(element = document.body) {
         'fc-wfh8u6',
         'fc-4sd3b',
         'fc-10wp6bm',
-        'fc-1e9qgxv',
+        'fc-1e9ggxv',
         'fc-1q5d9ro',
         'fc-cv7t3j',
         'fc-nwsrl7',
@@ -458,11 +405,11 @@ async function init() {
     // Clear existing timeout if user clicks again quickly
     if (clickTimeout) clearTimeout(clickTimeout);
     
-    // Re-convert chakra elements after 250ms to catch dynamically updated prices
+    // Re-convert chakra elements after 0.5s to catch dynamically updated prices
     clickTimeout = setTimeout(() => {
       console.log('[Freecash Converter] Running price conversion after click');
       convertPricesOnPage(document.body);
-    }, 250);
+    }, 500);
   }, true); // Use capture phase to catch all clicks
 
   // Listen for storage changes (when popup settings change)

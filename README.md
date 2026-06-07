@@ -15,16 +15,24 @@ The conversion process uses the [Wise Currency Converter](https://wise.com/gb/cu
 ## Open-Source Contributions
 Because of the nature of this project as open-source software (in lieu of being published on the Chrome Web Store), public contributors may create pull requests in order to introduce changes, which I will review myself.
 
-For example, if you wish to add a new supported currency, you may edit the `background.js` file and copy the Regex logic. Using `GBP` for demonstration:
+For example, if you wish to add a new supported currency, you may edit the `content.js` file and copy the existing logic. Using `GBP` for demonstration:
 ```js
 const currencyConfig = {
-    EUR: { rateRegex: /1\s*USD\s*=\s*([\d.]+)\s*EUR/i, fallbackRate: 0.87 },
-    /* Inside the rateRegex part, you only need to swap out EUR for GBP, and include
-    the appropriate fallbackRate value, which you can find online */
-    GBP: { rateRegex: /1\s*USD\s*=\s*([\d.]+)\s*GBP/i, fallbackRate: 0.79 }
-    // (And so on...)
+  EUR: { symbol: '€', fallbackRate: 0.87 },
+  /* The format is simple. You need to define the currency, give it a symbol
+  (or a combination of letters where applicable) and a fallbackRate. You can
+  check online to confirm this, or ask an AI assistant like ChatGPT or Gemini.*/
+  GBP: { symbol: '£', fallbackRate: 0.79 }
+  /* In this example, to add my British Pound Sterling currency support, I
+  replaced EUR with GBP, replaced the € symbol with £, and changed the
+  fallbackRate to 0.79, because $1 is roughly £0.79 mnost of the time.*/
 }
 ```
+Then, you need to modify `popup.html` as well to add your new currency as a selectable option:
+```html
+<option value="GBP">GBP (£)</option>
+```
+And that's everything.
 
 ## How to Install FMCC (Windows 10 & 11)
 ### Step 1: Cloning the Repository
