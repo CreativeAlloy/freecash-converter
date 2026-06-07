@@ -37,4 +37,4 @@ git clone https://github.com/CreativeAlloy/freecash-converter.git .
 :: instead of creating another subfolder. It keeps things neat.
 ```
 
-If you don't feel comfortable using the command prompt, simply download the Freecash Converter Installer script.
+If you don't feel comfortable using the command prompt, simply [download the Freecash Converter Installer script]()
