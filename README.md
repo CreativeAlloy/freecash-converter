@@ -19,10 +19,13 @@ For example, if you wish to add a new supported currency, you may edit the `cont
 ```js
 const currencyConfig = {
   EUR: { symbol: '€', fallbackRate: 0.87 },
+
   /* The format is simple. You need to define the currency, give it a symbol
   (or a combination of letters where applicable) and a fallbackRate. You can
   check online to confirm this, or ask an AI assistant like ChatGPT or Gemini.*/
+
   GBP: { symbol: '£', fallbackRate: 0.79 }
+  
   /* In this example, to add my British Pound Sterling currency support, I
   replaced EUR with GBP, replaced the € symbol with £, and changed the
   fallbackRate to 0.79, because $1 is roughly £0.79 mnost of the time.*/
