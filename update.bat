@@ -14,9 +14,13 @@ if "%LOCAL%" NEQ "%REMOTE%" (
     echo [NEW UPDATE FOUND] Pulling latest changes...
     git pull origin main
     echo.
-    echo Update complete! 
-    echo Please restart Google Chrome for the changes to take effect.
-    echo Alternatively, you may manually refresh the extension at chrome://extensions/ without restarting Chrome (if you have important unsaved work, etc.)
+    echo Update complete!
+    echo.
+    echo Opening chrome://extensions so you can refresh the extension...
+    start chrome chrome://extensions
+    echo.
+    echo If Chrome is not your default browser, please manually go to:
+    echo chrome://extensions/
 ) else (
     echo.
     echo Extension is already up to date.
