@@ -73,4 +73,4 @@ My name is Sufian "CreativeAlloy" M'Barki, and you may know me from [The Wasp Al
 
 Regardless, if you would like to support my work, please consider tipping me on my [Ko-fi Page](https://ko-fi.com/creativealloy). I accept both fiat (real currencies) and cryptocurrencies through crypto wallet transactions. I've listed the cryptocurrencies I accept on the page itself.
 
-Thank you!
+***Thank you!***
