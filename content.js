@@ -284,7 +284,7 @@ function convertPricesOnPage(element = document.body) {
       if (isInsideWithdrawalScreen) {
         return;
       }
-      
+
       if (isLotteryChakra) {
         // For lottery chakras, update the cache if a fresh raw value is pushed from the server
         if (!originalText.includes(currencySymbol)) {
@@ -410,7 +410,7 @@ async function init() {
     clickTimeout = setTimeout(() => {
       console.log('[Freecash Converter] Running price conversion after click');
       convertPricesOnPage(document.body);
-    }, 500);
+    }, 250);
   }, true); // Use capture phase to catch all clicks
 
   // Listen for storage changes (when popup settings change)
