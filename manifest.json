@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Freecash Multi-Currency Converter",
-  "version": "1.0.0.1",
+  "version": "1.0.1.0",
   "description": "Locally converts Freecash USD values to other currencies using live Wise rates.",
   "icons": {
     "128": "freecash-converter.png",
