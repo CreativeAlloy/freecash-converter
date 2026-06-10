@@ -244,6 +244,7 @@ function convertPricesOnPage(element = document.body) {
         'fc-1q5d9ro',
         'fc-cv7t3j',
         'fc-nwsrl7',
+        'fc-6qeg2x' // This is related to the balance displayed on the top right
       ]; // God fucking help me with these obfuscated class names
       const isDisplayModeChakra = displayModeChakras.some(cls => chakraEl.classList.toString().includes(cls));
       
@@ -285,8 +286,8 @@ function convertPricesOnPage(element = document.body) {
       }
       
       if (isLotteryChakra) {
-        // For lottery chakras, store original USD-only text to prevent duplication on each click
-        if (!chakraEl.dataset.originalUsdOnly) {
+        // For lottery chakras, update the cache if a fresh raw value is pushed from the server
+        if (!originalText.includes(currencySymbol)) {
           chakraEl.dataset.originalUsdOnly = originalText;
         }
         // Always use the stored original text
@@ -294,8 +295,8 @@ function convertPricesOnPage(element = document.body) {
         chakraEl.textContent = `${usdOnly} (${convertedText})`;
       } else if (isDisplayModeChakra) {
         // For display-mode chakras, apply display mode setting
-        // Store original text on first conversion to prevent duplication on clicks
-        if (!chakraEl.dataset.originalTextContent) {
+        // Force-update the cache if the current live text is a fresh raw value from the server (doesn't contain our currency symbol yet)
+        if (!originalText.includes(currencySymbol)) {
           chakraEl.dataset.originalTextContent = originalText;
         }
         const sourceText = chakraEl.dataset.originalTextContent;
